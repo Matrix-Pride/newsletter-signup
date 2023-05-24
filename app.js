@@ -25,7 +25,7 @@ app.post("/", (req, res) => {
       },
     ],
   };
-  const url = "https://us21.api.mailchimp.com/3.0/lists/47f9421662";
+  const url = "https://us21.api.mailchimp.com/3.0/lists/964975953024";
   const options = {
     method: "POST",
     auth: "Xnd:d1470dca4740f8eddc49f9bb796b8509-us21",
