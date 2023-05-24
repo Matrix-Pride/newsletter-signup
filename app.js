@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const https = require("https");
+require("dotenv").config();
+const apikey = process.env.API_KEY;
 const { request } = require("http");
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,7 +30,7 @@ app.post("/", (req, res) => {
   const url = "https://us21.api.mailchimp.com/3.0/lists/47f9421662";
   const options = {
     method: "POST",
-    auth: "Xnd:d1470dca4740f8eddc49f9bb796b8509-us21",
+    auth: `Xnd:${apikey}`,
   };
   const request = https.request(url, options, (response) => {
     if (response.statusCode == 200) {
@@ -42,12 +44,13 @@ app.post("/", (req, res) => {
     console.log(response.statusCode);
   });
 
-  app.post("/failure", (req, res) => {
-    res.redirect("/");
-  });
   const jsonData = JSON.stringify(data);
   request.write(jsonData);
   request.end();
+});
+
+app.post("/failure", (req, res) => {
+  res.redirect("/");
 });
 
 app.listen(process.env.PORT || 3000, () => {
